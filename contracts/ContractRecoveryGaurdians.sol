@@ -37,7 +37,7 @@ contract ContractRecoveryGaurdians is ContractRecoveryLogic {
 
     /// @notice Public function for the contract owner to transfer ownership
     /// @param _newOwnerAddress the address of the new contract owner
-    function ownerChange (_newOwnerAddress) public onlyOwner [
+    function transferOwnership (_newOwnerAddress) public onlyOwner [
         owner = _newOwnerAddress;
     ]
 }
