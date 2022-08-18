@@ -2,6 +2,9 @@
 
 Allows a person to recover a smart wallet or any other ownable smart contract by letting the owner add gaurdians who can transfer contract ownership in case the owner losses access to their private keys.
 
+### Note: 
+I know I misspelled gaurdians in every possible place, but I think it is funny so I'm not changing it yet.
+
 ## Description
 
 Written in solidity for EVM and EVM-like blockchains. The reason I made this is so that if the owner of a contract loses their private key, they can recover the contract by having pre-nominated gaurdians, basically their friends, transfer ownership to a new account.
