@@ -44,7 +44,7 @@ Now your contract is able to have gaurdians.
 
 ## Usage
 
-To see the availible functions, check out [ContractRecoveryGaurdians.sol](./contract/ContractRecoveryGaurdians.sol).
+To see the availible functions, check out [ContractRecoveryGaurdians.sol](https://github.com/compoundingbrain/Contract-Recovery-Gaurdians/blob/main/contracts/ContractRecoveryGaurdians.sol).
 
 #### Examples using Ethers:
 
