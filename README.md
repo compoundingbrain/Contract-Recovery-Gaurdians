@@ -2,6 +2,9 @@
 
 Allows a person to recover a smart wallet or any other ownable smart contract by letting the owner add guardians who can transfer contract ownership in case the owner losses access to their private keys.
 
+### Note: 
+I know I misspelled gaurdians in every possible place, but I think it is funny so I'm not changing it yet.
+
 ## Description
 
 Written in solidity for EVM and EVM-like blockchains. The reason I made this is so that if the owner of a contract loses their private key, they can recover the contract by having pre-nominated guardians, basically their friends, transfer ownership to a new account.
@@ -89,3 +92,4 @@ const transactionResponse = await myContract.transferOwnership(
   0x5b38da6a701c568545dcfcb03fcb875f56beddc1
 );
 ```
+*Disclaimer: I am not a pro-programmer nor am I a pro-githubber, so there might be errors in the README and their might be better ways to write the code. I love to learn so if you spot something, let me know.*
