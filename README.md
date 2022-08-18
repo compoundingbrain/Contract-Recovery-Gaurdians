@@ -89,3 +89,4 @@ const transactionResponse = await myContract.transferOwnership(
   0x5b38da6a701c568545dcfcb03fcb875f56beddc1
 );
 ```
+*Disclaimer: I am not a pro-programmer nor am I a pro-githubber, so there might be errors in the README and their might be better ways to write the code. I love to learn so if you spot something, let me know.*
