@@ -7,7 +7,7 @@ import "./ContractRecoveryGaurdians.sol";
 /// @title Basic smart wallet with gaurdian functionality
 /// @author compoundingbrain
 /// @notice basic smart wallet with gaurdians to help the owner recovery the wallet
-contract GaurdianSmartWallet is ContractRecoveryGaurdians {
+contract ExampleGaurdianSmartWallet is ContractRecoveryGaurdians {
     receive() external payable {}
 
     fallback() external payable {}
