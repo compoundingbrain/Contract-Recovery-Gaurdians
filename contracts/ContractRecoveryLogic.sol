@@ -2,20 +2,20 @@
 
 pragma solidity ^0.8.0;
 
-/// @title Account Recovery Gaurdians behind the scenes logic
+/// @title Account Recovery Guardians behind the scenes logic
 /// @author compoundingbrain
-/// @notice Behind the scenes logic that helps the AccountRecoveryGaurdians.sol contract provide gaurdians to help recover a contract
+/// @notice Behind the scenes logic that helps the AccountRecoveryGuardians.sol contract provide guardians to help recover a contract
 /// @dev Have not optimized the code for gas
 contract ContractRecoveryLogic {
     address public owner;
-    address[] private gaurdianAddresses;
-    mapping(address => uint) private gaurdianAddressesToIndex;
+    address[] private guardianAddresses;
+    mapping(address => uint) private guardianAddressesToIndex;
     struct NewOwnerProposal {
         address newOwnerAddress;
         uint numberOfVotes;
-        mapping(address => bool) gaurdianHasVoted;
+        mapping(address => bool) guardianHasVoted;
     }
-    mapping(address => bool) private gaurdianHasVoted;
+    mapping(address => bool) private guardianHasVoted;
     NewOwnerProposal private newOwnerProposal;
     address public proposedNewOwnerAddress;
 
@@ -25,9 +25,9 @@ contract ContractRecoveryLogic {
         _;
     }
 
-    /// @notice only a gaurdian can use a function
-    modifier onlyGaurdian() {
-        require(_isGaurdian(msg.sender));
+    /// @notice only a guardian can use a function
+    modifier onlyGuardian() {
+        require(_isGuardian(msg.sender));
         _;
     }
 
@@ -35,33 +35,33 @@ contract ContractRecoveryLogic {
         owner = msg.sender;
         newOwnerProposal.newOwnerAddress = owner;
         proposedNewOwnerAddress = owner;
-        gaurdianAddresses.push(0x0000000000000000000000000000000000000000);
+        guardianAddresses.push(0x0000000000000000000000000000000000000000);
     }
 
-    /// @notice Internal function to add a gaurdian to help recovery the smart contract.
-    /// @param _gaurdianAddress the address of the gaurdian you wish to add
-    function _addGaurdian(address _gaurdianAddress) internal {
+    /// @notice Internal function to add a guardian to help recovery the smart contract.
+    /// @param _guardianAddress the address of the guardian you wish to add
+    function _addGuardian(address _guardianAddress) internal {
         require(
-            _gaurdianAddress != owner && _isGaurdian(_gaurdianAddress) == false
+            _guardianAddress != owner && _isGuardian(_guardianAddress) == false
         );
-        gaurdianAddressesToIndex[_gaurdianAddress] = gaurdianAddresses.length;
-        gaurdianAddresses.push(_gaurdianAddress);
+        guardianAddressesToIndex[_guardianAddress] = guardianAddresses.length;
+        guardianAddresses.push(_guardianAddress);
     }
 
-    /// @notice Internal function to remove a gaurdian to help recovery the smart contract.
-    /// @param _gaurdianAddress the address of the gaurdian you wish to remove
-    function _removeGaurdian(address _gaurdianAddress) internal {
-        delete gaurdianAddresses[gaurdianAddressesToIndex[_gaurdianAddress]];
+    /// @notice Internal function to remove a guardian to help recovery the smart contract.
+    /// @param _guardianAddress the address of the guardian you wish to remove
+    function _removeGuardian(address _guardianAddress) internal {
+        delete guardianAddresses[guardianAddressesToIndex[_guardianAddress]];
     }
 
-    /// @notice Internal function to check if an address is also a gaurdian on this contract
-    /// @param _gaurdianAddress the address that you wish to verifiy is a gaurdian
-    function _isGaurdian(address _gaurdianAddress)
+    /// @notice Internal function to check if an address is also a guardian on this contract
+    /// @param _guardianAddress the address that you wish to verifiy is a guardian
+    function _isGuardian(address _guardianAddress)
         internal
         view
         returns (bool)
     {
-        if (gaurdianAddressesToIndex[_gaurdianAddress] != 0) {
+        if (guardianAddressesToIndex[_guardianAddress] != 0) {
             return (true);
         } else {
             return (false);
@@ -74,24 +74,24 @@ contract ContractRecoveryLogic {
         newOwnerProposal.newOwnerAddress = _newOwnerAddress;
         proposedNewOwnerAddress = _newOwnerAddress;
         newOwnerProposal.numberOfVotes = 0;
-        for (uint i = 0; i < gaurdianAddresses.length; i++) {
-            delete newOwnerProposal.gaurdianHasVoted[gaurdianAddresses[i]];
+        for (uint i = 0; i < guardianAddresses.length; i++) {
+            delete newOwnerProposal.guardianHasVoted[guardianAddresses[i]];
         }
     }
 
-    /// @notice Internal function vote on a proposed new owner. Owner will be changed when majority of gaurdians vote yes
+    /// @notice Internal function vote on a proposed new owner. Owner will be changed when majority of guardians vote yes
     function _voteForNewOwner() internal {
-        require(!newOwnerProposal.gaurdianHasVoted[msg.sender]);
-        newOwnerProposal.gaurdianHasVoted[msg.sender] = true;
+        require(!newOwnerProposal.guardianHasVoted[msg.sender]);
+        newOwnerProposal.guardianHasVoted[msg.sender] = true;
         newOwnerProposal.numberOfVotes++;
         if (
             (newOwnerProposal.numberOfVotes * 10) >
-            (((gaurdianAddresses.length - 1) * 10) / 2)
+            (((guardianAddresses.length - 1) * 10) / 2)
         ) {
             owner = newOwnerProposal.newOwnerAddress;
             _proposeNewOwner(owner);
-            if (_isGaurdian(owner)) {
-                _removeGaurdian(owner);
+            if (_isGuardian(owner)) {
+                _removeGuardian(owner);
             }
         }
     }

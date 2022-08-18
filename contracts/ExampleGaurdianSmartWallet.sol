@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.0;
 
-import "./ContractRecoveryGaurdians.sol";
+import "./ContractRecoveryGuardians.sol";
 
-/// @title Basic smart wallet with gaurdian functionality
+/// @title Basic smart wallet with guardian functionality
 /// @author compoundingbrain
-/// @notice basic smart wallet with gaurdians to help the owner recovery the wallet
-contract ExampleGaurdianSmartWallet is ContractRecoveryGaurdians {
+/// @notice basic smart wallet with guardians to help the owner recovery the wallet
+contract ExampleGuardianSmartWallet is ContractRecoveryGuardians {
     receive() external payable {}
 
     fallback() external payable {}
